@@ -1,0 +1,56 @@
+﻿
+<div id="app">
+    <v-app>
+        <v-content>
+            <v-container>
+                @if (ViewBag.admin == "Y") {
+                <v-btn fab dark color="blue" href="@Url.Action("Create")">
+                    <v-icon dark>add</v-icon>
+                </v-btn>
+                         }
+                <v-list three-line>
+                    @for (int i = 0; i < ViewBag.data.Rows.Count; i++)
+                    {
+                        <text>
+                            <template>
+                                <v-list-tile>
+                                    <v-list-tile-avatar color="blue">
+                                        <img v-img src="~/lib/images/@(ViewBag.data.Rows[i]["file_name"]+".png")">
+                                    </v-list-tile-avatar>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title><a href="@Url.Action("Read")?id=@ViewBag.data.Rows[i]["id"]">@ViewBag.data.Rows[i]["title"]</a></v-list-tile-title>
+                                        <v-list-tile-sub-title v-html="">@ViewBag.data.Rows[i]["content"]</v-list-tile-sub-title>
+                                        <v-list-tile-sub-title v-html=""><a href="@Url.Action("Read")?id=@ViewBag.data.Rows[i]["id"]">@ViewBag.data.Rows[i]["created_at"].ToString("yyyy/MM/dd HH:mm:ss")</a></v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                    @if (ViewBag.admin == "Y")
+                                    {
+                                        <v-btn fab dark color="cyan" href="@Url.Action("Edit")?id=@ViewBag.data.Rows[i]["id"]">
+                                            <v-icon dark>edit</v-icon>
+                                        </v-btn>
+                                        <v-btn fab dark color="red">
+                                            <v-icon dark v-on:click="confirm_del(@ViewBag.data.Rows[i]["id"])">remove</v-icon>
+                                        </v-btn>
+                                    }
+                                    </v-list-tile>
+                                <v-divider> </v-divider>
+                            </template>
+                        </text>
+                    }
+                </v-list>
+
+            </v-container>
+        </v-content>
+    </v-app>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            confirm_del(id) {
+                if (confirm("確定刪除嗎?")) { window.location.href = '@Url.Action("Delete")' + "?id="+id }
+            }
+        }
+
+    })
+</script>

@@ -1,0 +1,30 @@
+﻿
+<div id="app">
+    @{ Html.BeginForm("CheckUser", "LifeLog", FormMethod.Post); }
+    <v-app>
+        <v-content>
+            <v-container>
+
+                <v-flex xs12 sm3>
+                    <div>
+                        <v-text-field label="帳號" name="user_name"
+                                      single-line></v-text-field>
+                    </div>
+                    <div>
+                        <v-text-field label="密碼" name="password"
+                                      single-line></v-text-field>
+                    </div>
+                </v-flex>
+
+                <v-btn type="submit">登入</v-btn>
+            </v-container>
+
+
+        </v-content>
+    </v-app>
+    @{ Html.EndForm(); }
+</div>
+
+<script>
+    new Vue({ el: '#app' })
+</script>

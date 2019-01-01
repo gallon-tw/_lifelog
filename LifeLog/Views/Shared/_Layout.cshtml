@@ -1,0 +1,80 @@
+﻿
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    <div id="app_layout">
+        <v-app_header>
+            <v-content>
+                <v-toolbar>
+                    <v-flex xs1 sm1>
+                        <v-toolbar-title v-on:click="to_index" class="font-weight-bold.font-italic headline">
+                            <span style="cursor:pointer;"> LifeLog</span>
+                        </v-toolbar-title>
+                    </v-flex>
+                    <v-flex xs6 sm3 md2>
+                        <v-menu :close-on-content-click="false"
+                                v-model="menu"
+                                :nudge-right="40"
+                                lazy
+                                transition="scale-transition"
+                                offset-y
+                                full-width
+                                min-width="290px">
+                            <v-text-field slot="activator"
+                                          v-model="date"
+                                          label="日期"
+                                          name="shift_date"
+                                          clearable
+                                          prepend-icon="event"
+                                          readonly></v-text-field>
+                            <v-date-picker v-model="date" v-on:input="menu2 = false"></v-date-picker>
+                        </v-menu>
+                    </v-flex>
+                    <v-flex xs12 sm6 md3>
+                        <v-text-field label="關鍵字" name="search_key"></v-text-field>
+                    </v-flex>
+                    <v-btn icon>
+                        <v-icon v-on:click="search">search</v-icon>
+                    </v-btn>
+                    @if (ViewBag.admin == "Y")
+                    {
+                        <v-btn Flat href="@Url.Action("Logout")">
+                            登出<v-icon>exit_to_app</v-icon>
+                        </v-btn>
+                    }
+                    else
+                    { 
+                        <v-btn  href="@Url.Action("Login")" color="success">
+                            登入
+                        </v-btn>
+                    }
+                </v-toolbar>
+
+            </v-content>
+        </v-app_header>
+    </div>
+    @RenderBody()
+    <script>
+        new Vue({
+            el: '#app_layout',
+            methods: {
+                to_index() { window.location.href = '@Url.Action("Index")' },
+                search() { window.location.href = '@Url.Action("Index")' + "?search_key=" + $("input[name='search_key']").val() + "&shift_date=" + $("input[name='shift_date']").val() }
+            },
+            data: () => ({
+                date:'',
+                menu: false
+
+            })
+        })
+
+    </script>
+</body>
+</html>

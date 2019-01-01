@@ -1,0 +1,42 @@
+﻿
+<div id="app">
+    @{ Html.BeginForm("Update", "LifeLog", FormMethod.Post); }
+    <v-app>
+        <v-content>
+            <v-container>
+                <div id="yahoo_weather" class="font-weight-medium.font-italic title">
+                    <img style="background-color:#0099ff;" src="~/lib/images/@(ViewBag.data.Rows[0]["file_name"]+".png")">
+                    @ViewBag.data.Rows[0]["location"] : @ViewBag.data.Rows[0]["weather_text"]
+                </div>
+                <v-flex xs12 md4>
+                    <v-card class="elevation-0 transparent">
+
+                        <v-card-title primary-title class="layout justify-left">
+                            <div class="headline">@ViewBag.data.Rows[0]["title"]</div>
+                        </v-card-title>
+                        <v-card-text>
+                            @ViewBag.data.Rows[0]["created_at"].ToString("yyyy/MM/dd HH:mm:ss")<br />
+                            @ViewBag.data.Rows[0]["content"]
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+
+            </v-container>
+        </v-content>
+
+    </v-app>
+    @{ Html.EndForm(); }
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data: () => ({
+
+        }),
+        methods: {
+
+        }
+    })
+</script>

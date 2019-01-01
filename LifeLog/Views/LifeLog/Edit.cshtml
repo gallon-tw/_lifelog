@@ -1,0 +1,32 @@
+﻿
+<div id="app">
+    @{ Html.BeginForm("Update", "LifeLog", FormMethod.Post); }
+    <v-app>
+        <v-content>
+            <v-container>
+
+                <div id="yahoo_weather" class="font-weight-medium.font-italic title">
+                    <img style="background-color:#0099ff;" src="~/lib/images/@(ViewBag.data.Rows[0]["file_name"]+".png")">
+                    @ViewBag.data.Rows[0]["location"] : @ViewBag.data.Rows[0]["weather_text"]
+                </div>
+                <v-flex xs12 sm6 md3>
+                    <v-text-field label="標題" name="title" value="@ViewBag.data.Rows[0]["title"]"></v-text-field>
+                </v-flex>
+                <v-textarea name="content" value="@ViewBag.data.Rows[0]["content"]"
+                            label="生活記事 @ViewBag.data.Rows[0]["created_at"].ToString("yyyy/MM/dd HH:mm:ss")"
+                            rows="20">@ViewBag.data.Rows[0]["content"]</v-textarea>
+                            <v-btn type="submit">submit</v-btn>
+                        </v-container>
+                    </v-content>
+                    <input type="hidden" name="id" value="@ViewBag.data.Rows[0]["id"]"></input>
+                    <input type="hidden" name="shift_date" value="@DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")"></input>
+                </v-app>
+                @{ Html.EndForm(); }
+            </div>
+
+
+            <script>
+                new Vue({
+                    el: '#app'
+                })
+            </script>
